@@ -4,8 +4,8 @@
       <router-link to="/" class="navLink">Wallet</router-link>
       <router-link to="/" class="navLink">Search</router-link>
     </div>
-      <router-link to="/" class="navLink">Account</router-link>
-      <router-link to="/" class="navLink">Log Out</router-link>
+    <router-link to="/" class="navLink">Account</router-link>
+    <router-link to="/" class="navLink">Log Out</router-link>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 export default {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/scss/index.scss";
 
 .nav-bar {
@@ -21,22 +21,23 @@ export default {}
   flex-wrap: wrap;
   width: 100%;
   border-bottom: $border-thickness solid $border-color;
+}
 
-  a {
-    display: flex;
-    justify-content: center;
-    font-size: $font-m;
-    font-weight: 500;
-    padding: 10px;
-    margin: 10px;
-    color: $font-color-light;
-    background-color: $color-02;
-    border: $border-thickness solid $border-color;
-    border-radius: $border-radius;
+.navLink {
+  display: flex;
+  justify-content: center;
+  font-size: $font-m;
+  font-weight: 500;
+  padding: 10px;
+  margin: 10px;
+  width: 210px;
+  color: $font-color-light;
+  background-color: $color-02;
+  border: $border-thickness solid $border-color;
+  border-radius: $border-radius;
 
-    &:hover {
-      background-color: $color-03;
-    }
+  &:hover {
+    background-color: $color-03;
   }
 }
 

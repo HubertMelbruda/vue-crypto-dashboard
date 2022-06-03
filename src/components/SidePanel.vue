@@ -6,7 +6,7 @@
     </div>
     <div className="navLinkList">
       <router-link to="/" class="navLink">Dashboard</router-link>
-      <router-link to="/" class="navLink">User Profile</router-link>
+      <router-link to="/userProfile" class="navLink">User Profile</router-link>
       <router-link to="/" class="navLink">Portfolio</router-link>
       <router-link to="/" class="navLink">Prices</router-link>
       <router-link to="/" class="navLink">Exchange</router-link>
@@ -20,7 +20,7 @@
 export default {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/scss/index.scss";
 
 .side-panel {
@@ -69,10 +69,10 @@ export default {}
 }
 
 .navIcon {
-    width: 25px;
-    height: 25px;
-    color: $font-color-light;
-  }
+  width: 25px;
+  height: 25px;
+  color: $font-color-light;
+}
 
 .navLink:hover {
   border: $border-thickness solid rgb(255, 255, 255);
