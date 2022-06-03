@@ -7,11 +7,11 @@
     <div className="navLinkList">
       <router-link to="/" class="navLink">Dashboard</router-link>
       <router-link to="/userProfile" class="navLink">User Profile</router-link>
-      <router-link to="/" class="navLink">Portfolio</router-link>
-      <router-link to="/" class="navLink">Prices</router-link>
-      <router-link to="/" class="navLink">Exchange</router-link>
-      <router-link to="/" class="navLink">Calender</router-link>
-      <router-link to="/" class="navLink">Notes</router-link>
+      <router-link to="/portfolio" class="navLink">Portfolio</router-link>
+      <router-link to="/prices" class="navLink">Prices</router-link>
+      <router-link to="/exchange" class="navLink">Exchange</router-link>
+      <router-link to="/calender" class="navLink">Calender</router-link>
+      <router-link to="/notes" class="navLink">Notes</router-link>
     </div>
   </div>
 </template>

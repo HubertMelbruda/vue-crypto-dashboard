@@ -1,11 +1,14 @@
 <template>
-  <div>
-    Prices
-  </div>
+    <PriceTable />
 </template>
+
 <script>
+import PriceTable from '../components/PriceTable.vue'
+
 export default {
-  
+  components: {
+    PriceTable,
+  }
 }
 </script>
 <style lang="">
