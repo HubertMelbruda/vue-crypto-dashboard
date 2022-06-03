@@ -1,22 +1,24 @@
-<template> 
+<template>
   <div class="App">
-      <SidePanel />
+    <SidePanel />
     <div class="mainPanel">
+      <NavBar />
       <div class="content">
-        <router-view/>
+        <router-view />
       </div>
     </div>
   </div>
-
-  
 </template>
 
 <script>
-import SidePanel from './components/SidePanel.vue'
+import SidePanel from "./components/SidePanel.vue"
+import NavBar from "./components/NavBar.vue"
+
 export default {
   components: {
     SidePanel,
-  }
+    NavBar,
+  },
 }
 </script>
 
@@ -28,5 +30,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>
