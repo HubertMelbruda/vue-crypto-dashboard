@@ -1,7 +1,9 @@
+import { ref } from "vue"
+
 const getCoinsData = url => {
   const axios = require("axios")
-  let coinsData = []
-  let error = ""
+  const coinsData = ref()
+  const error = ref()
 
   const load = async () => {
     try {

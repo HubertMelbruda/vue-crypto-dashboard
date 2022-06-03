@@ -1,5 +1,10 @@
 <template>
-    <PriceTable />
+    <div className="page-container">
+      <div className="row">
+          <PriceTable />
+      </div>
+    </div>
+    
 </template>
 
 <script>
@@ -11,6 +16,6 @@ export default {
   }
 }
 </script>
-<style lang="">
+<style lang="scss">
   
 </style>

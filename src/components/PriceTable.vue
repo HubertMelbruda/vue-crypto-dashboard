@@ -15,9 +15,10 @@
           <div class="market-cap">Market</div>
           <div class="ath">ATH</div>
         </div>
-        <div> 
-            {{ coinsData1 }}
-        </div>
+        <CoinDetails :coinsData="coinsData"/>
+        <!-- <div v-for="coins in coinsData" :key="coins.id"> 
+            {{ coins.id }}
+        </div> -->
       </div>
     </div>
     <div class="card-footer">
@@ -28,19 +29,23 @@
 
 <script>
 import getCoinsData from "../utilities/getCoinsData"
+import CoinDetails from '../components/CoinDetails.vue'
 
 export default {
   data() {
     return {
-      coinsData1: [],
+      coinsData: [],
       error: "",
       url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
     }
   },
+  components: {
+    CoinDetails,
+  },
   mounted() {
     const { coinsData, error, load } = getCoinsData(this.url)
     load()
-    this.coinsData1 = coinsData[1]
+    this.coinsData = coinsData
     this.error = error
     console.log(coinsData)
     
@@ -48,7 +53,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/scss/index.scss";
 
 .table-prices {
@@ -101,6 +106,7 @@ export default {
   padding: $padding-m;
   min-width: 170px;
   font-weight: 800;
+  margin-left: 20px;
 
   img {
     margin-right: 20px;
