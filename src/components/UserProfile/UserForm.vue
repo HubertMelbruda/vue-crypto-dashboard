@@ -8,101 +8,93 @@
         <form onSubmit="{handleSubmit}" className="grow">
           <div className="row">
             <div className="column grow">
-              <label htmlFor="userName">User Name</label>
+              <label>User Name</label>
               <input
                 type="text"
                 name="userName"
-                id="userName"
                 required
                 placeholder="Luck Skywalker"
-                onChange="{updateField}"
+                v-model="userName"
               />
             </div>
             <div className="column grow">
-              <label htmlFor="emailAddress">Email Address</label>
+              <label>Email Address</label>
               <input
                 type="text"
                 name="emailAddress"
-                id="emailAddress"
                 required
                 placeholder="e.g. skywalker@gmail.com"
-                onChange="{updateField}"
+                v-model="emailAddress"
               />
             </div>
           </div>
           <div className="row">
             <div className="column grow">
-              <label htmlFor="firstName">First Name</label>
+              <label>First Name</label>
               <input
                 type="text"
                 name="firstName"
-                id="firstName"
                 required
                 placeholder="Jon"
-                onChange="{updateField}"
+                v-model="firstName"
               />
             </div>
             <div className="column grow">
-              <label htmlFor="lastName">Last Name</label>
+              <label>Last Name</label>
               <input
                 type="text"
                 name="lastName"
-                id="lastname"
                 required
                 placeholder="Doe"
-                onChange="{updateField}"
+                v-model="lastName"
               />
             </div>
           </div>
 
           <div className="row">
             <div className="column grow">
-              <label htmlFor="address">Address</label>
+              <label>Address</label>
               <input
                 type="text"
                 name="address"
-                id="address"
                 required
                 placeholder="Address..."
-                onChange="{updateField}"
+                v-model="address"
               />
             </div>
           </div>
 
           <div className="row">
             <div className="column grow">
-              <label htmlFor="city">Password</label>
+              <label>Password</label>
               <input
                 type="text"
                 name="password"
-                id="city"
                 required
                 placeholder="******"
-                onChange="{updateField}"
+                v-model="password"
               />
             </div>
             <div className="column grow">
-              <label htmlFor="country">Password Rep.</label>
+              <label>Password Rep.</label>
               <input
                 type="text"
                 name="passwordRep"
-                id="country"
                 required
                 placeholder="******"
-                onChange="{updateField}"
+                v-model="passwordRep"
               />
             </div>
           </div>
           <div className="row">
             <div className="column grow">
-              <label htmlFor="aboutMe">About Me</label>
+              <label>About Me</label>
               <textarea
                 name="aboutMe"
-                id="aboutMe"
                 cols="30"
                 rows="10"
                 placeholder="Write something about yourself..."
-                onChange="{updateField}"
+                v-model="aboutMe"
               ></textarea>
             </div>
           </div>
@@ -114,9 +106,31 @@
     </div>
   </div>
 </template>
+
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      userName: "",
+      emailAddress: "",
+      firstName: "",
+      lastName: "",
+      address: "",
+      password: "",
+      passwordRep: "",
+      aboutMe: "",
+    }
+  },
+  methods: {
+    handleSubmit(e) {
+      e.preventDefault()
+
+      // send data to data base 
+    },
+  },
+}
 </script>
+
 <style lang="scss" scoped>
 @import "../../assets/scss/index.scss";
 
@@ -127,7 +141,7 @@ export default {}
     font-weight: 400;
     color: $font-color-light;
     padding-bottom: 5px;
-    text-align:  start;
+    text-align: start;
   }
 
   input {
