@@ -23,15 +23,13 @@ export default {
     return {
       coinsData: [],
       error: "",
-      url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
+      url: "httpss://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
     }
   },
   async mounted() {
-    const { coinsData, error, load } = getCoinsData(this.url)
-    await load()
+    const { coinsData, error } = await getCoinsData(this.url)
     this.coinsData = coinsData
     this.error = error
-    console.log(this.coinsData)
   },
   computed: {
     filteredCoins() {

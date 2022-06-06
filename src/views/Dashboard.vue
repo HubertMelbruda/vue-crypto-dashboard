@@ -12,6 +12,7 @@
       </div>
     </div>
 </template>
+
 <script>
 import PriceCard from '../components/PriceCard.vue'
 
@@ -21,6 +22,7 @@ export default {
   }  
 }
 </script>
+
 <style lang="">
   
 </style>

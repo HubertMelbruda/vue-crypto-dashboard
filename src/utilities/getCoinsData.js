@@ -1,19 +1,16 @@
-import { ref } from "vue"
+const axios = require("axios")
 
-const getCoinsData = url => {
-  const axios = require("axios")
-  const coinsData = ref()
-  const error = ref()
+const getCoinsData = async url => {
+  let coinsData = []
+  let error = []
 
-  const load = async () => {
-    try {
-      const res = await axios.get(url)
-      coinsData.value = res.data
-    } catch (err) {
-      error = "I can not fetch data from the server. "
-    }
+  try {
+    const res = await axios.get(url)
+    coinsData = res.data
+  } catch (err) {
+    error = "I can not fetch data from the server. "
   }
-  return { coinsData, error, load }
+  return { coinsData, error }
 }
 
 export default getCoinsData
