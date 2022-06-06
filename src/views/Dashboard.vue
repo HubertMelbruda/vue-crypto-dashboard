@@ -2,6 +2,9 @@
   <div className="page-container">
       <div className="cards">
         <PriceCard name="bitcoin"/>
+        <PriceCard name="ethereum" />
+        <PriceCard name="ripple" />
+        <PriceCard name="solana" />
       </div>
       <hr />
       <div className="body">
