@@ -1,13 +1,10 @@
 <template>
   <div className="page-container">
     <div className="cards">
-      <PriceCard2 :coin="bitCoinData" />
-      <PriceCard2 :coin="ethereumData" />
-      <PriceCard2 :coin="bnbData" />
-      <PriceCard2 :coin="cardanoData" />
-      <PriceCard2 :coin="xrpData" />
+      <div v-for="coin in defaultCoins" :key="coin">
+        <PriceCard2 :coin="getFilteredData(coin)" />
+      </div>
     </div>
-    <hr />
     <div className="body">Charts</div>
   </div>
 </template>
@@ -26,11 +23,7 @@ export default {
     return {
       coinsData: [],
       error: "",
-      bitCoinData: null,
-      ethereumData: null,
-      bnbData: null,
-      cardanoData: null,
-      xrpData: null,
+      defaultCoins: ['bitcoin', 'ethereum', 'cardano', 'binancecoin', 'ripple'],
       url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
     }
   },
@@ -38,18 +31,12 @@ export default {
     const { coinsData, error } = await getCoinsData(this.url)
     this.coinsData = coinsData
     this.error = error
-
-    this.bitCoinData = this.coinsData.filter(coin => coin.id === "bitcoin")
-
-    this.ethereumData = this.coinsData.filter(coin => coin.id === "ethereum")
-
-    this.cardanoData = this.coinsData.filter(coin => coin.id === "cardano")
-
-    this.bnbData = this.coinsData.filter(coin => coin.id === "binancecoin")
-
-    this.xrpData = this.coinsData.filter(coin => coin.id === "ripple")
-    
   },
+  methods: {
+    getFilteredData(coinName) {
+      return this.coinsData.filter(coin => coin.id === `${coinName}`)
+    }
+  }
 }
 </script>
 
