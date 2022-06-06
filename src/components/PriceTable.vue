@@ -42,13 +42,10 @@ export default {
   components: {
     CoinDetails,
   },
-  mounted() {
-    const { coinsData, error, load } = getCoinsData(this.url)
-    load()
+  async mounted() {
+    const { coinsData, error} = await getCoinsData(this.url)
     this.coinsData = coinsData
-    this.error = error
-    console.log(coinsData)
-    
+    this.error = error  
   },
 }
 </script>

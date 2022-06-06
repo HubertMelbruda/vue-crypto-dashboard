@@ -23,7 +23,7 @@ export default {
     return {
       coinsData: [],
       error: "",
-      url: "httpss://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
+      url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
     }
   },
   async mounted() {
@@ -32,18 +32,14 @@ export default {
     this.error = error
   },
   computed: {
-    filteredCoins() {
-      const x = this.coinsData.filter(coin => coin.id === this.name)
-      return x
+    filteredCoins() { 
+      return this.coinsData.filter(coin => coin.id === this.name)
     },
   },
 }
 </script>
 <style lang="scss">
 @import "../assets/scss/index.scss";
-
-.card-body {
-}
 
 .chart {
   img {
