@@ -1,43 +1,26 @@
 <template>
-  <div v-for="coin in filteredCoins" :key="coin.id" className="card grow">
+  <div v-for="item in coin" :key="item.id" className="card grow">
     <div className="card-header">
-      <p>{{ coin.id }}</p>
+      <p>{{ item.name }}</p>
     </div>
     <div className="card-body">
       <div className="card-icon">
-        <img :src="coin.image" alt="coin-img" />
+        <img :src="item.image" alt="coin-img" />
       </div>
       <div className="card-price">
-        <h4>$ {{ coin.current_price }}</h4>
+        <h4>$ {{ item.current_price }}</h4>
       </div>
     </div>
     <div className="card-footer"></div>
   </div>
 </template>
-<script>
-import getCoinsData from "../utilities/getCoinsData"
 
+<script>
 export default {
-  props: ["name"],
-  data() {
-    return {
-      coinsData: [],
-      error: "",
-      url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false",
-    }
-  },
-  async mounted() {
-    const { coinsData, error } = await getCoinsData(this.url)
-    this.coinsData = coinsData
-    this.error = error
-  },
-  computed: {
-    filteredCoins() { 
-      return this.coinsData.filter(coin => coin.id === this.name)
-    },
-  },
+  props: ["coin"],
 }
 </script>
+
 <style lang="scss">
 @import "../assets/scss/index.scss";
 
@@ -61,6 +44,7 @@ export default {
   align-items: center;
   padding: 0 10px;
   margin-left: auto;
+  
 
   h4 {
     font-size: $font-xl;

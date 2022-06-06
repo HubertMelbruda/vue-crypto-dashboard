@@ -2,7 +2,7 @@
   <div className="page-container">
     <div className="cards">
       <div v-for="coin in defaultCoins" :key="coin">
-        <PriceCard2 :coin="getFilteredData(coin)" />
+        <PriceCard :coin="getFilteredData(coin)" />
       </div>
     </div>
     <div className="body">Charts</div>
@@ -11,13 +11,11 @@
 
 <script>
 import PriceCard from "../components/PriceCard.vue"
-import PriceCard2 from "../components/PriceCard2.vue"
 import getCoinsData from "../utilities/getCoinsData"
 
 export default {
   components: {
     PriceCard,
-    PriceCard2,
   },
   data() {
     return {
