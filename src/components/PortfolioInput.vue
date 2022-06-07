@@ -47,18 +47,28 @@
     <div class="portfolio-card-container">Portfolio to display</div>
   </div>
 </template>
+
 <script>
+import getCoinsData from "../utilities/getCoinsData"
 export default {
   data() {
     return {
       coinInput: "",
       modal: false,
-      coins: ["Bitcoin", "Ethereum", "Cardano", "Binancecoin", "Ripple"],
+      coins: [],
       filteredCoins: [],
+      coinsData: [],
+      error: "",
+      url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false",
     }
   },
-  mounted() {
+  async created() {
+    const { coinsData, error} = await getCoinsData(this.url)
+    this.coinsData = coinsData.map(coin => {
+      this.coins.push(coin.name)
+    } )
     this.filterCoins()
+    this.error = error 
   },
   methods: {
     filterCoins() {
