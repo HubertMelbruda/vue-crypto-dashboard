@@ -9,9 +9,11 @@
           <div class="relative">
             <input
               type="text"
-              v-model="coinInput"
+              v-model="coinName"
               autocomplete="off"
               @focus="modal = true"
+              required
+              placeholder="BitCoin"
             />
             <div class="autocomplete" v-if="filteredCoins && modal">
               <ul>
@@ -28,18 +30,26 @@
         </div>
         <div class="portfolio-element">
           <p class="portfolio-element__input-name">Quantity</p>
-          <input type="text" />
+          <input
+            type="text"
+            v-model="coinQuantity"
+            required
+            placeholder="29000,12"
+          />
         </div>
         <div class="portfolio-element">
           <p class="portfolio-element__input-name">Price $</p>
-          <input type="text" />
+          <input type="text" v-model="coinPrice" required placeholder="0,875" />
         </div>
         <div class="portfolio-element">
           <p class="portfolio-element__input-name">Date</p>
-          <input type="date" />
+          <input type="date" v-model="coinDate" />
         </div>
       </form>
-      <button class="button">Add to portfolio</button>
+      <div class="form-error" v-if="isFormFiled">
+        <p>Please fill up all required fields</p>
+      </div>
+      <button class="button" @click="handleSubmit">Add to portfolio</button>
     </div>
     <div class="divider"></div>
 
@@ -50,10 +60,17 @@
 
 <script>
 import getCoinsData from "../utilities/getCoinsData"
+const { default: axios } = require("axios")
+axios.defaults.headers.common["X-Auth-Token"] = "sometoken-common-token"
+
 export default {
   data() {
     return {
-      coinInput: "",
+      coinName: "",
+      coinQuantity: null,
+      coinPrice: null,
+      coinDate: null,
+      isFormFiled: false,
       modal: false,
       coins: [],
       filteredCoins: [],
@@ -63,29 +80,60 @@ export default {
     }
   },
   async created() {
-    const { coinsData, error} = await getCoinsData(this.url)
+    const { coinsData, error } = await getCoinsData(this.url)
     this.coinsData = coinsData.map(coin => {
       this.coins.push(coin.name)
-    } )
+    })
     this.filterCoins()
-    this.error = error 
+    this.error = error
   },
   methods: {
     filterCoins() {
-      if (this.coinInput.length === 0) {
+      if (this.coinName.length === 0) {
         this.filteredCoins = this.coins
       }
       this.filteredCoins = this.coins.filter(coin => {
-        return coin.toLowerCase().startsWith(this.coinInput.toLowerCase())
+        return coin.toLowerCase().startsWith(this.coinName.toLowerCase())
       })
     },
     setState(filteredCoins) {
-      this.coinInput = filteredCoins
+      this.coinName = filteredCoins
       this.modal = false
+    },
+    handleSubmit() {
+      // const axios = require("axios")
+
+      const coinData = {
+        name: this.coinName,
+        quantity: this.coinQuantity,
+        price: this.coinPrice,
+        date: this.coinDate,
+      }
+
+      if (
+        coinData.name === "" ||
+        coinData.quantity === 0.0 ||
+        coinData.price === 0.0
+      ) {
+        this.isFormFiled = true
+      } else {
+        axios.post("http://localhost:8000/portfolio/", {
+          name: this.coinName,
+          quantity: this.coinQuantity,
+          price: this.coinPrice,
+          date: this.coinDate,
+        })
+
+        this.coinName = ""
+        this.coinQuantity = 0
+        this.coinPrice = 0
+        this.coinDate = null
+        this.isFormFiled = false
+      }
     },
   },
   watch: {
-    coinInput() {
+    coinName() {
       this.filterCoins()
     },
   },
@@ -206,5 +254,11 @@ li {
   position: absolute;
   inset: 0;
   z-index: 0;
+}
+
+.form-error {
+  padding: 10px;
+  margin-bottom: 10px;
+  color: crimson;
 }
 </style>
