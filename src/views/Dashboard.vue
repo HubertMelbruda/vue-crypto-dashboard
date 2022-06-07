@@ -1,11 +1,11 @@
 <template>
-  <div className="page-container">
-    <div className="cards">
-      <div v-for="coin in defaultCoins" :key="coin">
+  <div class="page-container">
+    <div class="cards">
+      <div v-for="coin in defaultCoins" :key="coin" class="grow" >
         <PriceCard :coin="getFilteredData(coin)" />
       </div>
     </div>
-    <div className="body">Charts</div>
+    <div class="body">Charts</div>
   </div>
 </template>
 

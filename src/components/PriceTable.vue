@@ -16,9 +16,6 @@
           <div class="ath">ATH</div>
         </div>
         <CoinDetails :coinsData="coinsData"/>
-        <!-- <div v-for="coins in coinsData" :key="coins.id"> 
-            {{ coins.id }}
-        </div> -->
       </div>
     </div>
     <div class="card-footer">

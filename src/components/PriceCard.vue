@@ -1,17 +1,17 @@
 <template>
-  <div v-for="item in coin" :key="item.id" className="card grow">
-    <div className="card-header">
+  <div v-for="item in coin" :key="item.id" class="card">
+    <div class="card-header">
       <p>{{ item.name }}</p>
     </div>
-    <div className="card-body">
-      <div className="card-icon">
+    <div class="card-body">
+      <div class="card-icon">
         <img :src="item.image" alt="coin-img" />
       </div>
-      <div className="card-price">
+      <div class="card-price">
         <h4>$ {{ item.current_price }}</h4>
       </div>
     </div>
-    <div className="card-footer"></div>
+    <div class="card-footer"></div>
   </div>
 </template>
 
@@ -45,7 +45,6 @@ export default {
   padding: 0 10px;
   margin-left: auto;
   
-
   h4 {
     font-size: $font-xl;
     font-weight: 400;
