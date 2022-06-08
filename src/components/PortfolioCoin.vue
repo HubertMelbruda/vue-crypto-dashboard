@@ -43,7 +43,6 @@ export default {
           (previousEl, currentEl) =>
             parseFloat(previousEl.price) + parseFloat(currentEl.price)
         )
-
         const quantitySum = filteredArray.reduce(
           (previousEl, currentEl) =>
             parseFloat(previousEl.quantity) + parseFloat(currentEl.quantity)
@@ -51,18 +50,13 @@ export default {
 
         const invested = filteredArray.reduce(
           (previousEl, currentEl) =>
-            parseFloat(previousEl.price * previousEl.quantity) + parseFloat(currentEl.price * currentEl.quantity)
+            parseFloat(previousEl.price * previousEl.quantity) +
+            parseFloat(currentEl.price * currentEl.quantity)
         )
 
         this.averagePrice = priceSum / filteredArray.length
         this.quantitySum = quantitySum
         this.invested = invested
-
-        console.log(filteredArray)
-        console.log(typeof this.averagePrice)
-        console.log(typeof priceSum)
-        console.log(quantitySum)
-        console.log(invested)
       }
     },
   },

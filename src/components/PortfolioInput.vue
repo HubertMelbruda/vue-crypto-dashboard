@@ -148,7 +148,7 @@ export default {
       try {
         const res = await axios.get("http://localhost:8000/portfolio/")
         this.portfolio = res.data
-        console.log(res.data)
+        console.log("Res.data -> ", res.data)
       } catch (err) {
         this.errorDB = "I can not fetch data from the server. "
       }
