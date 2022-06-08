@@ -53,25 +53,26 @@
     </div>
     <div class="divider"></div>
 
-    <button class="button" @click="handleRefreshPortfolio">Refresh</button>
     <div class="page-container">
-      <p class="portfolio__header">Portfolio</p>
-      <div v-for="coin in portfolio" :key="coin.id">
-        <PortfolioElement :coin="coin"/>
+        <p class="portfolio__header">Portfolio</p>
+    <button class="button" @click="handleRefreshPortfolio">Refresh</button>
+      <div class="portfolio__coins">
+        <div v-for="coin in portfolio" :key="coin.id">
+          <PortfolioElement :coin="coin" />
+        </div>
       </div>
-      
     </div>
   </div>
 </template>
 
 <script>
 import getCoinsData from "../utilities/getCoinsData"
-import PortfolioElement from '../components/PortfolioElement.vue'
+import PortfolioElement from "../components/PortfolioElement.vue"
 const { default: axios } = require("axios")
 
 export default {
   components: {
-    PortfolioElement
+    PortfolioElement,
   },
   data() {
     return {
@@ -207,6 +208,12 @@ input {
   font-weight: 600;
   font-size: 17px;
   padding: 5px;
+}
+
+.portfolio__coins {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
 }
 
 .portfolio-element__input {

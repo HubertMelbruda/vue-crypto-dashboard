@@ -24,19 +24,13 @@ export default {
 <style lang="scss">
 @import "../assets/scss/index.scss";
 
-.chart {
-  img {
-    width: 500px;
-  }
-}
-
 .card-icon {
   @include centerElement;
+}
 
-  img {
-    width: 40px;
-    height: 40px;
-  }
+img {
+  width: 40px;
+  height: 40px;
 }
 
 .card-price {
@@ -44,10 +38,10 @@ export default {
   align-items: center;
   padding: 0 10px;
   margin-left: auto;
-  
-  h4 {
-    font-size: $font-xl;
-    font-weight: 400;
-  }
+}
+
+h4 {
+  font-size: $font-xl;
+  font-weight: 400;
 }
 </style>
