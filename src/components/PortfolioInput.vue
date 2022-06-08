@@ -34,12 +34,12 @@
             type="text"
             v-model="coinQuantity"
             required
-            placeholder="29000,12"
+            placeholder="29000.12"
           />
         </div>
         <div class="portfolio-element">
           <p class="portfolio-element__input-name">Price $</p>
-          <input type="text" v-model="coinPrice" required placeholder="0,875" />
+          <input type="text" v-model="coinPrice" required placeholder="0.875" />
         </div>
         <div class="portfolio-element">
           <p class="portfolio-element__input-name">Date</p>
@@ -57,10 +57,11 @@
         <p class="portfolio__header">Portfolio</p>
     <button class="button" @click="handleRefreshPortfolio">Refresh</button>
       <div class="portfolio__coins">
-        <div v-for="coin in portfolio" :key="coin.id">
+        <!-- <div v-for="coin in portfolio" :key="coin.id">
           <PortfolioElement :coin="coin" />
-        </div>
+        </div> -->
       </div>
+        <PortfolioCoin :portfolio="portfolio" name="Ethereum"/>
     </div>
   </div>
 </template>
@@ -68,11 +69,13 @@
 <script>
 import getCoinsData from "../utilities/getCoinsData"
 import PortfolioElement from "../components/PortfolioElement.vue"
+import PortfolioCoin from "../components/PortfolioCoin.vue"
 const { default: axios } = require("axios")
 
 export default {
   components: {
     PortfolioElement,
+    PortfolioCoin,
   },
   data() {
     return {

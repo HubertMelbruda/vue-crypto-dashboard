@@ -88,9 +88,4 @@ img {
   width: 40px;
   height: 40px;
 }
-
-// h4 {
-//   font-size: $font-xl;
-//   font-weight: 400;
-// }
 </style>
