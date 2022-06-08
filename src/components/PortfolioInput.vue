@@ -53,17 +53,26 @@
     </div>
     <div class="divider"></div>
 
-    <button class="button">Refresh</button>
-    <div class="portfolio-card-container">Portfolio to display</div>
+    <button class="button" @click="handleRefreshPortfolio">Refresh</button>
+    <div class="page-container">
+      <p class="portfolio__header">Portfolio</p>
+      <div v-for="coin in portfolio" :key="coin.id">
+        <PortfolioElement :coin="coin"/>
+      </div>
+      
+    </div>
   </div>
 </template>
 
 <script>
 import getCoinsData from "../utilities/getCoinsData"
+import PortfolioElement from '../components/PortfolioElement.vue'
 const { default: axios } = require("axios")
-axios.defaults.headers.common["X-Auth-Token"] = "sometoken-common-token"
 
 export default {
+  components: {
+    PortfolioElement
+  },
   data() {
     return {
       coinName: "",
@@ -71,11 +80,13 @@ export default {
       coinPrice: null,
       coinDate: null,
       isFormFiled: false,
+      portfolio: [],
       modal: false,
       coins: [],
       filteredCoins: [],
       coinsData: [],
       error: "",
+      errorDB: "",
       url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false",
     }
   },
@@ -101,8 +112,6 @@ export default {
       this.modal = false
     },
     handleSubmit() {
-      // const axios = require("axios")
-
       const coinData = {
         name: this.coinName,
         quantity: this.coinQuantity,
@@ -129,6 +138,15 @@ export default {
         this.coinPrice = 0
         this.coinDate = null
         this.isFormFiled = false
+      }
+    },
+    async handleRefreshPortfolio() {
+      try {
+        const res = await axios.get("http://localhost:8000/portfolio/")
+        this.portfolio = res.data
+        console.log(res.data)
+      } catch (err) {
+        this.errorDB = "I can not fetch data from the server. "
       }
     },
   },
@@ -160,7 +178,7 @@ export default {
 .portfolio__header {
   display: flex;
   min-width: 120px;
-  margin: 10px;
+  margin: 20px;
   font-size: 25px;
   font-weight: 300;
 }
