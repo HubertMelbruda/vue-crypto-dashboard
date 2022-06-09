@@ -7,8 +7,13 @@
       <button class="button" @click="handleRefreshPortfolio">Refresh</button>
     </div>
     <div class="portfolio__coins">
-      <div v-for="coinName in coinsInPortfolio" :key="coinName">
-        <PortfolioCoin :portfolio="portfolio" :name="coinName" />
+      <div v-for="name in uniqueCoinNames" :key="name">
+        <PortfolioCoin 
+          :name="name" 
+          :averagePrice="getAveragePrice(name)" 
+          :quantitySum="getQuantitySum(name)" 
+          :invested="getInvested(name)" 
+        />
       </div>
     </div>
   </div>
@@ -18,7 +23,7 @@
 import PortfolioForm from "../components/Portfolio/PortfolioForm.vue"
 import PortfolioCoin from "../components/Portfolio/PortfolioCoin.vue"
 
-const { default: axios } = require("axios")
+import axios from 'axios'
 
 export default {
   components: {
@@ -29,17 +34,45 @@ export default {
     return {
       portfolio: [],
       error: "",
-      coinsInPortfolio: [],
+    }
+  },
+  computed: {
+    uniqueCoinNames() {
+      return [...new Set(this.portfolio.map(coin => coin.name))]
     }
   },
   methods: {
+    filteredPortfolio(name) {
+      return this.portfolio.filter(coin => coin.name === name)
+    },
+    getAveragePrice(name) {
+      const filteredArray = this.filteredPortfolio(name)
+      if (filteredArray.length) {
+        return filteredArray.reduce((previousEl, currentEl) => {
+          return previousEl + parseFloat(currentEl.price)
+        }, 0)
+      }
+    },
+    getQuantitySum(name) {
+      const filteredArray = this.filteredPortfolio(name)
+      if (filteredArray.length) {
+        return filteredArray.reduce((previousEl, currentEl) => {
+          return previousEl + parseFloat(currentEl.quantity)
+        }, 0)
+      }
+    },
+    getInvested(name) {
+      const filteredArray = this.filteredPortfolio(name)
+      if (filteredArray.length) {
+        return filteredArray.reduce((previousEl, currentEl) => {
+          return previousEl + parseFloat(currentEl.price * currentEl.quantity)
+        }, 0)
+      }
+    },
     async handleRefreshPortfolio() {
       try {
         const res = await axios.get("http://localhost:8000/portfolio/")
         this.portfolio = res.data
-        res.data.forEach(coin => this.coinsInPortfolio.push(coin.name))
-        const set = new Set(this.coinsInPortfolio)
-        this.coinsInPortfolio = [...set]
       } catch (err) {
         this.error = "I can not fetch data from the server. "
       }

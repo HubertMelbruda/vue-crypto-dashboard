@@ -26,42 +26,7 @@
 
 <script>
 export default {
-  props: ["portfolio", "name"],
-  data() {
-    return {
-      averagePrice: null,
-      quantitySum: null,
-      invested: null,
-    }
-  },
-  methods: {
-    average(portfolio, name) {
-      const filteredArray = portfolio.filter(coin => coin.name === name)
-      // debugger
-      if (filteredArray.length) {
-        const priceSum = filteredArray.reduce((previousEl, currentEl) => {
-          return previousEl + parseFloat(currentEl.price)
-        }, 0)
-
-        const quantitySum = filteredArray.reduce((previousEl, currentEl) => {
-          return previousEl + parseFloat(currentEl.quantity)
-        }, 0)
-
-        const invested = filteredArray.reduce((previousEl, currentEl) => {
-          return previousEl + parseFloat(currentEl.price * currentEl.quantity)
-        }, 0)
-
-        this.averagePrice = priceSum / filteredArray.length
-        this.quantitySum = quantitySum
-        this.invested = invested
-      }
-    },
-  },
-  watch: {
-    portfolio() {
-      this.average(this.portfolio, this.name)
-    },
-  },
+  props: ["name", "averagePrice", "quantitySum", "invested"],
 }
 </script>
 
