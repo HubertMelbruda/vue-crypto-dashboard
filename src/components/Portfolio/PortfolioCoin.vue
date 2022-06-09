@@ -1,5 +1,5 @@
 <template>
-  <div v-if="averagePrice !== 0">
+  <div>
     <div class="card">
       <div class="card__icon"></div>
       <div class="card__header">
@@ -37,22 +37,19 @@ export default {
   methods: {
     average(portfolio, name) {
       const filteredArray = portfolio.filter(coin => coin.name === name)
-
+      // debugger
       if (filteredArray.length) {
-        const priceSum = filteredArray.reduce(
-          (previousEl, currentEl) =>
-            parseFloat(previousEl.price) + parseFloat(currentEl.price)
-        )
-        const quantitySum = filteredArray.reduce(
-          (previousEl, currentEl) =>
-            parseFloat(previousEl.quantity) + parseFloat(currentEl.quantity)
-        )
+        const priceSum = filteredArray.reduce((previousEl, currentEl) => {
+          return previousEl + parseFloat(currentEl.price)
+        }, 0)
 
-        const invested = filteredArray.reduce(
-          (previousEl, currentEl) =>
-            parseFloat(previousEl.price * previousEl.quantity) +
-            parseFloat(currentEl.price * currentEl.quantity)
-        )
+        const quantitySum = filteredArray.reduce((previousEl, currentEl) => {
+          return previousEl + parseFloat(currentEl.quantity)
+        }, 0)
+
+        const invested = filteredArray.reduce((previousEl, currentEl) => {
+          return previousEl + parseFloat(currentEl.price * currentEl.quantity)
+        }, 0)
 
         this.averagePrice = priceSum / filteredArray.length
         this.quantitySum = quantitySum
@@ -69,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/scss/index.scss";
+@import "../../assets/scss/index.scss";
 
 .card {
   display: flex;

@@ -61,7 +61,7 @@
           <PortfolioElement :coin="coin" />
         </div> -->
       </div>
-        <PortfolioCoin :portfolio="portfolio" name="Ethereum"/>
+        <PortfolioCoin :averagePrice="averagePrice" :quantitySum="quantitySum" :invested="invested"/>
     </div>
   </div>
 </template>
@@ -92,6 +92,9 @@ export default {
       error: "",
       errorDB: "",
       url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false",
+      averagePrice: null,
+      quantitySum: null,
+      invested: null,
     }
   },
   async created() {
@@ -103,6 +106,27 @@ export default {
     this.error = error
   },
   methods: {
+    average(portfolio, name) {
+      const filteredArray = portfolio.filter(coin => coin.name === name)
+      if (filteredArray.length) {
+        const priceSum = filteredArray.reduce(
+          (previousEl, currentEl) => {
+            return previousEl + parseFloat(currentEl.price)
+          }, 0)
+
+        const quantitySum = filteredArray.reduce(
+          (previousEl, currentEl) => {
+            return previousEl + parseFloat(currentEl.quantity)
+          }, 0)
+
+        const invested = filteredArray.reduce(
+          (previousEl, currentEl) => {
+            return previousEl + parseFloat(currentEl.price * currentEl.quantity)
+          }, 0)
+
+        return { averagePrice: priceSum / filteredArray.length, quantitySum, invested }
+      }
+    },
     filterCoins() {
       if (this.coinName.length === 0) {
         this.filteredCoins = this.coins
@@ -130,7 +154,7 @@ export default {
       ) {
         this.isFormFiled = true
       } else {
-        axios.post("http://localhost:8000/portfolio/", {
+        axios.post("http://localhost:8001/portfolio/", {
           name: this.coinName,
           quantity: this.coinQuantity,
           price: this.coinPrice,
@@ -146,9 +170,12 @@ export default {
     },
     async handleRefreshPortfolio() {
       try {
-        const res = await axios.get("http://localhost:8000/portfolio/")
+        const res = await axios.get("http://localhost:8001/portfolio/")
+        const { averagePrice, quantitySum, invested } = this.average(res.data, "Ethereum")
         this.portfolio = res.data
-        console.log("Res.data -> ", res.data)
+        this.averagePrice = averagePrice
+        this.quantitySum = quantitySum
+        this.invested = invested
       } catch (err) {
         this.errorDB = "I can not fetch data from the server. "
       }
