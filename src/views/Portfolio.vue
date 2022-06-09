@@ -7,11 +7,7 @@
       <button class="button" @click="handleRefreshPortfolio">Refresh</button>
     </div>
     <div class="portfolio__coins">
-      <!-- <PortfolioCoin :portfolio="portfolio" name="Bitcoin" /> -->
-      <!-- <PortfolioCoin :portfolio="portfolio" name="Ethereum" /> -->
-    </div>
-    <div class="portfolio__coins">
-      <div v-for="coinName in coinsInPortfolio2" :key="coinName">
+      <div v-for="coinName in coinsInPortfolio" :key="coinName">
         <PortfolioCoin :portfolio="portfolio" :name="coinName" />
       </div>
     </div>
@@ -33,9 +29,7 @@ export default {
     return {
       portfolio: [],
       error: "",
-      coinsInPortfolio: ["Ethereum", "Bitcoin", "XRP"],
-      coinsInPortfolio1: [],
-      coinsInPortfolio2: [],
+      coinsInPortfolio: [],
     }
   },
   methods: {
@@ -43,9 +37,9 @@ export default {
       try {
         const res = await axios.get("http://localhost:8000/portfolio/")
         this.portfolio = res.data
-        res.data.forEach(coin => this.coinsInPortfolio1.push(coin.name))
-        const set = new Set(this.coinsInPortfolio1)
-        this.coinsInPortfolio2 = [...set]
+        res.data.forEach(coin => this.coinsInPortfolio.push(coin.name))
+        const set = new Set(this.coinsInPortfolio)
+        this.coinsInPortfolio = [...set]
       } catch (err) {
         this.error = "I can not fetch data from the server. "
       }
